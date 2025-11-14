@@ -1,0 +1,7 @@
+<button (click)="showClock.set(true)" [disabled]="showClock()">Create Clock</button>
+<button (click)="showClock.set(false)" [disabled]="!showClock()">Delete Clock</button>
+<h3> Actual Format: {{ format() }}</h3>
+<button (click)='changeFormat()'>Change format</button>
+@if (showClock()) {
+  <app-clock-component [format]="format()"></app-clock-component>
+}
