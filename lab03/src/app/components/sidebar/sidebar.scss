@@ -1,6 +1,11 @@
-.side {
-    background-color: blueviolet;
-    color: aquamarine;
-    width: 100%;
-    height: 100%;
+@use 'variables' as *;
+
+.sidebar {
+    width: 220px;
+    padding: 16px;
+    background-color: $accent-color;
+
+    img {
+        max-width: 100%;
+    }
 }

@@ -6,8 +6,7 @@ import { Sidebar } from './components/sidebar/sidebar';
 @Component({
   selector: 'app-root',
   imports: [Header, MainContent, Sidebar, Footer],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  templateUrl: './app.html'
 })
 export class App {
   protected readonly title = signal('lab03');

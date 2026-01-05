@@ -1,0 +1,12 @@
+@use 'variables' as *;
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: $secondary-color;
+    color: $text-color;
+}
+
+.layout {
+    display: flex;
+}

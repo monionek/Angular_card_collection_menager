@@ -1,6 +1,8 @@
-.copyright {
-    color: burlywood;
-    font-size: smaller;
-    font-weight: 900;
-    font-style: italic;
+@use 'variables' as *;
+
+.footer {
+    background-color: $primary-color;
+    color: white;
+    text-align: center;
+    padding: 12px;
 }

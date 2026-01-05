@@ -24,11 +24,17 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/assets"
             ],
             "styles": [
-              "public/scss/styles.scss"
+              "src/public/scss/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/public/scss"
+              ]
+            },
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {
@@ -89,11 +95,23 @@
               "src/styles.scss"
             ]
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }
