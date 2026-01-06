@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let product of products">
+    <input type="checkbox" [(ngModel)]="product.bought" />
+    <span [style.textDecoration]="product.bought ? 'line-through' : 'none'">
+      {{ product.name }}
+    </span>
+  </li>
+</ul>
