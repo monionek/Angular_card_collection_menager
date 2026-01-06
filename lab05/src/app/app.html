@@ -1,3 +1,2 @@
-<div>
-
-</div>
+<app-user-form (userSubmited)="addUser($event)"></app-user-form>
+<app-user-list [userList]="userList" (userDeleted)="removeUser($event)"></app-user-list>

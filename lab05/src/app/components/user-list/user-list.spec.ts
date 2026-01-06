@@ -14,7 +14,7 @@ describe('UserList', () => {
 
     fixture = TestBed.createComponent(UserList);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

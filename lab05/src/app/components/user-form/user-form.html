@@ -1,1 +1,152 @@
-<p>user-form works!</p>
+<form #f="ngForm" (ngSubmit)="add()">
+  <div class="form-group">
+    <input
+      type="text"
+      name="username"
+      [(ngModel)]="username"
+      #ctrlUsername="ngModel"
+      required
+      minlength="3"
+      placeholder="Imię"
+      [class.invalid]="ctrlUsername.invalid && ctrlUsername.touched"
+    />
+    <div class="error" *ngIf="ctrlUsername.invalid && ctrlUsername.touched">
+      <div *ngIf="ctrlUsername.errors?.['required']">Imię jest wymagane</div>
+      <div *ngIf="ctrlUsername.errors?.['minlength']">Imię musi mieć co najmniej 3 znaki</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      name="surname"
+      [(ngModel)]="surname"
+      #ctrlSurname="ngModel"
+      required
+      minlength="3"
+      placeholder="Nazwisko"
+      [class.invalid]="ctrlSurname.invalid && ctrlSurname.touched"
+    />
+    <div class="error" *ngIf="ctrlSurname.invalid && ctrlSurname.touched">
+      <div *ngIf="ctrlSurname.errors?.['required']">Nazwisko jest wymagane</div>
+      <div *ngIf="ctrlSurname.errors?.['minlength']">Nazwisko musi mieć co najmniej 3 znaki</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      name="phoneNumber"
+      [(ngModel)]="phoneNumber"
+      #ctrlPhone="ngModel"
+      required
+      pattern="^[0-9]{9}$"
+      placeholder="Numer telefonu"
+      [class.invalid]="ctrlPhone.invalid && ctrlPhone.touched"
+    />
+    <div class="error" *ngIf="ctrlPhone.invalid && ctrlPhone.touched">
+      <div *ngIf="ctrlPhone.errors?.['required']">Numer telefonu jest wymagany</div>
+      <div *ngIf="ctrlPhone.errors?.['pattern']">Numer telefonu musi mieć 9 cyfr</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="number"
+      name="birthYear"
+      [(ngModel)]="birthYear"
+      #ctrlBirth="ngModel"
+      required
+      minlength="4"
+      maxlength="4"
+      placeholder="Rok urodzenia"
+      [class.invalid]="ctrlBirth.invalid && ctrlBirth.touched"
+    />
+    <div class="error" *ngIf="ctrlBirth.invalid && ctrlBirth.touched">
+      <div *ngIf="ctrlBirth.errors?.['required']">Rok urodzenia jest wymagany</div>
+      <div *ngIf="ctrlBirth.errors?.['minlength'] || ctrlBirth.errors?.['maxlength']">
+        Rok urodzenia musi mieć 4 cyfry
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      name="street"
+      [(ngModel)]="street"
+      #ctrlStreet="ngModel"
+      required
+      minlength="3"
+      placeholder="Ulica"
+      [class.invalid]="ctrlStreet.invalid && ctrlStreet.touched"
+    />
+    <div class="error" *ngIf="ctrlStreet.invalid && ctrlStreet.touched">
+      <div *ngIf="ctrlStreet.errors?.['required']">Ulica jest wymagana</div>
+      <div *ngIf="ctrlStreet.errors?.['minlength']">Ulica musi mieć co najmniej 3 znaki</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="number"
+      name="houseNumber"
+      [(ngModel)]="houseNumber"
+      #ctrlHouse="ngModel"
+      required
+      maxlength="5"
+      placeholder="Numer domu"
+      [class.invalid]="ctrlHouse.invalid && ctrlHouse.touched"
+    />
+    <div class="error" *ngIf="ctrlHouse.invalid && ctrlHouse.touched">
+      <div *ngIf="ctrlHouse.errors?.['required']">Numer domu jest wymagany</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="number"
+      name="appartmentNumber"
+      [(ngModel)]="appartmentNumber"
+      #ctrlAppartment="ngModel"
+      maxlength="5"
+      placeholder="Numer mieszkania"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      name="city"
+      [(ngModel)]="city"
+      #ctrlCity="ngModel"
+      required
+      minlength="3"
+      placeholder="Miasto"
+      [class.invalid]="ctrlCity.invalid && ctrlCity.touched"
+    />
+    <div class="error" *ngIf="ctrlCity.invalid && ctrlCity.touched">
+      <div *ngIf="ctrlCity.errors?.['required']">Miasto jest wymagane</div>
+      <div *ngIf="ctrlCity.errors?.['minlength']">Miasto musi mieć co najmniej 3 znaki</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      name="postalCode"
+      [(ngModel)]="postalCode"
+      #ctrlPostal="ngModel"
+      required
+      pattern="^[0-9]{2}-[0-9]{3}$"
+      placeholder="Kod pocztowy"
+      [class.invalid]="ctrlPostal.invalid && ctrlPostal.touched"
+    />
+    <div class="error" *ngIf="ctrlPostal.invalid && ctrlPostal.touched">
+      <div *ngIf="ctrlPostal.errors?.['required']">Kod pocztowy jest wymagany</div>
+      <div *ngIf="ctrlPostal.errors?.['pattern']">Kod pocztowy musi mieć format XX-XXX</div>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="f.invalid">Add</button>
+</form>
