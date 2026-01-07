@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "lab06": {
+    "lab07": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -36,7 +36,10 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           },
           "configurations": {
             "production": {
@@ -66,10 +69,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "lab06:build:production"
+              "buildTarget": "lab07:build:production"
             },
             "development": {
-              "buildTarget": "lab06:build:development"
+              "buildTarget": "lab07:build:development"
             }
           },
           "defaultConfiguration": "development"

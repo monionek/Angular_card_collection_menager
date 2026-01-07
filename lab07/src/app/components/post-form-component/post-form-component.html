@@ -1,0 +1,6 @@
+<form #f="ngForm" (ngSubmit)="add()">
+  <input type="text" name="title" [(ngModel)]="title" required placeholder="tytuł" />
+
+  <input type="text" name="content" [(ngModel)]="content" required placeholder="treść" />
+  <button type="submit">Add Post</button>
+</form>

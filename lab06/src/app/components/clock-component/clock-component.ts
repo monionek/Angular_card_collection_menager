@@ -1,5 +1,4 @@
-import { DatePipe } from '@angular/common';
-import { Component, Input, OnChanges, OnDestroy, OnInit, signal, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-clock-component',
@@ -7,45 +6,69 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, signal, SimpleChanges }
   templateUrl: './clock-component.html',
   styleUrl: './clock-component.scss',
 })
-export class ClockComponent implements OnInit, OnDestroy{
+export class ClockComponent implements OnInit, OnDestroy, OnChanges {
   @Input({ required: true }) public format!: '12' | '24';
-  time = '';
-  private intervalId?: number;
-  running = signal(true);
-  constructor(private datePipe: DatePipe) {}
-  ngOnInit() {
-    this.updateTime();
+
+  protected time: string = '';
+
+  private currentDate: Date = new Date();
+  private intervalId: number | null = null;
+
+
+  public ngOnInit(): void {
+    this.updateView();
+    this.start();
+  }
+
+  public ngOnDestroy(): void {
+    this.stop();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['format']) {
+      this.updateView();
+    }
+  }
+
+
+
+  public start(): void {
+    if (this.intervalId !== null) {
+      return;
+    }
 
     this.intervalId = window.setInterval(() => {
-      this.updateTime();
+      this.currentDate = new Date();
+      this.updateView();
     }, 1000);
   }
 
-  // updateTime() {
-  //   if (this.format === '12') {
-  //     this.time = new Date().toLocaleTimeString('eng-US');
-  //   } else {
-  //     this.time = new Date().toLocaleTimeString('eng-GB');
-  //   }
-  // }
-    updateTime() {
-    const pattern = this.format === '24' ? 'HH:mm:ss' : 'hh:mm:ss a';
-    this.time = this.datePipe.transform(new Date(), pattern)!;
+  public stop(): void {
+    if (this.intervalId !== null) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
   }
-    start() {
-    if (this.intervalId) return;
-    this.running.set(true);
-    this.updateTime();
-    this.intervalId = window.setInterval(() => this.updateTime(), 1000);
+  public getCurrentTime() {
+    return this.time;
   }
 
-  stop() {
-    if (!this.intervalId) return;
-    clearInterval(this.intervalId);
-    this.intervalId = undefined;
-    this.running.set(false);
+
+  private updateView(): void {
+    const hours = this.currentDate.getHours();
+    const minutes = this.currentDate.getMinutes();
+    const seconds = this.currentDate.getSeconds();
+
+    if (this.format === '24') {
+      this.time = `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}`;
+    } else {
+      const suffix = hours >= 12 ? 'PM' : 'AM';
+      const h12 = hours % 12 || 12;
+      this.time = `${this.pad(h12)}:${this.pad(minutes)}:${this.pad(seconds)} ${suffix}`;
+    }
   }
-  ngOnDestroy() {
-    clearInterval(this.intervalId);
+
+  private pad(value: number): string {
+    return value.toString().padStart(2, '0');
   }
 }

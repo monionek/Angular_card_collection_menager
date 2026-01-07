@@ -1,7 +1,15 @@
-<button (click)="showClock.set(true)" [disabled]="showClock()">Create Clock</button>
-<button (click)="showClock.set(false)" [disabled]="!showClock()">Delete Clock</button>
-<h3> Actual Format: {{ format() }}</h3>
-<button (click)='changeFormat()'>Change format</button>
-@if (showClock()) {
-  <app-clock-component [format]="format()"></app-clock-component>
-}
+<button (click)="createClock()">Utwórz zegar</button>
+<button (click)="removeClock()" [disabled]="!showClock">Usuń zegar</button>
+
+<hr />
+
+<select [(ngModel)]="format">
+  <option value="24">24-godzinny</option>
+  <option value="12">12-godzinny</option>
+</select>
+
+<hr />
+
+<app-clock-component *ngIf="showClock" [format]="format"></app-clock-component>
+
+<h2 *ngIf="!showClock && lastTime">Ostatnia godzina: {{ lastTime }}</h2>
