@@ -1,0 +1,13 @@
+<h2>
+  {{ isEditMode ? 'Edytuj książkę' : 'Dodaj książkę' }}
+</h2>
+
+<form [formGroup]="bookForm" (ngSubmit)="submit()">
+  <input formControlName="title" placeholder="Tytuł" />
+  <input formControlName="author" placeholder="Autor" />
+  <textarea formControlName="description" placeholder="Opis"></textarea>
+
+  <button type="submit" [disabled]="bookForm.invalid">
+    {{ isEditMode ? 'Zapisz zmiany' : 'Dodaj książkę' }}
+  </button>
+</form>
