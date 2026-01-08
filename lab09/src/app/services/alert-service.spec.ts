@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RandServiceService } from './rand-service.service';
+import { AlertService } from './alert-service';
 
-describe('RandServiceService', () => {
-  let service: RandServiceService;
+describe('AlertService', () => {
+  let service: AlertService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RandServiceService);
+    service = TestBed.inject(AlertService);
   });
 
   it('should be created', () => {
