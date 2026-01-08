@@ -1,0 +1,22 @@
+<div *ngIf="users.length === 0">
+  <p>Brak użytkowników</p>
+</div>
+
+<div *ngFor="let user of users" class="user-card">
+  <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+  <p>Email: {{ user.email }}</p>
+
+  <div *ngIf="user.addresses.length > 0">
+    <h4>Adresy:</h4>
+    <ul>
+      <li *ngFor="let address of user.addresses">
+        {{ address.street }}, {{ address.city }},
+        {{ address.zip }}
+      </li>
+    </ul>
+  </div>
+
+  <p *ngIf="user.addresses.length === 0">Brak adresów</p>
+
+  <button (click)="deleteUser(user.id)">Usuń użytkownika</button>
+</div>

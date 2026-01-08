@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { ReactiveForms } from './components/reactive-forms/reactive-forms';
-import { FormBuilderComponent } from './components/form-builder-component/form-builder-component';
+import { UserFormComponent } from './components/user-form-component/user-form-component';
+import { UserListComponent } from './components/user-list-component/user-list-component';
 
 @Component({
   selector: 'app-root',
-  imports: [ReactiveForms, FormBuilderComponent],
+  imports: [UserFormComponent, UserListComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
