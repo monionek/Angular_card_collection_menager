@@ -9,9 +9,10 @@
   <div *ngIf="user.addresses.length > 0">
     <h4>Adresy:</h4>
     <ul>
-      <li *ngFor="let address of user.addresses">
+      <li *ngFor="let address of user.addresses; let i = index">
         {{ address.street }}, {{ address.city }},
         {{ address.zip }}
+        <button type="button" (click)="deleteAddress(user.id, i)">Usuń</button>
       </li>
     </ul>
   </div>
