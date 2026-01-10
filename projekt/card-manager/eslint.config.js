@@ -152,6 +152,7 @@ module.exports = defineConfig([
           variableDeclarationIgnoreFunction: true,
         },
       ],
+      '@typescript-eslint/unbound-method': 'off',
     },
   },
   {

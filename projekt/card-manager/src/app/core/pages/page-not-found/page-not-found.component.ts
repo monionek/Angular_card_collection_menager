@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-page-not-found',
   imports: [],
   templateUrl: './page-not-found.component.html',
-  styleUrl: './page-not-found.component.css',
+  styleUrl: './page-not-found.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageNotFoundComponent {
