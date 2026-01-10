@@ -18,4 +18,5 @@ export const routes: Routes = [
       import('./core/pages/page-not-found/page-not-found.component')
         .then((m) => m.PageNotFoundComponent),
   },
+  
 ];

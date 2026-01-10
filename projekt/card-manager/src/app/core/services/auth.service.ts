@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private readonly apiUrl: string = "http://localhost:3000";
-  private token: string = '';
+  private token: string | null = null;
   private readonly http = inject(HttpClient);
 
-  public getAuthToken(): string {    
+  public getAuthToken(): string | null {    
     return this.token;
   }
 
@@ -19,8 +19,16 @@ export class AuthService {
     this.saveTokenToLocalStorage();
   }
 
+  public hasToken(): boolean {
+    if (this.token && localStorage.getItem("token")) return true;
+    
+    return false;
+  }
+
   private saveTokenToLocalStorage(): void {
-    localStorage.setItem('token', this.token);
+    if (this.token) {
+      localStorage.setItem('token', this.token);
+    }
   }
 
   public login(login: string, password: string): Observable<string> {
