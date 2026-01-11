@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
-import { LoginFormModel } from '../../../../models/loginForm.model';
+import { LoginFormModel } from '../../../models/loginForm.model';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';

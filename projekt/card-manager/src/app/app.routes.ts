@@ -13,10 +13,14 @@ export const routes: Routes = [
         .then((m) => m.LoginComponent),
   },
   {
+    path: "collections",
+    loadComponent: () => import('./features/collections/pages/collections-list/collections-list.component')
+        .then((m) => m.CollectionsListComponent)
+  },
+    {
     path: '**',
     loadComponent: () =>
       import('./core/pages/page-not-found/page-not-found.component')
         .then((m) => m.PageNotFoundComponent),
   },
-  
 ];

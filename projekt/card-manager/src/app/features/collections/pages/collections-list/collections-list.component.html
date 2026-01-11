@@ -1,0 +1,10 @@
+<div class="collections-list">
+  <ul>
+    @for (collection of this.collections$ | async; track collection.name) {
+    <li>
+      <h2>{{ collection.name }}</h2>
+      <p>{{ collection.createdAt }}</p>
+    </li>
+    }
+  </ul>
+</div>
