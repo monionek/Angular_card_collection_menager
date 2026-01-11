@@ -1,8 +1,23 @@
 <div class="collections-list">
+  <section class="filters">
+    <h3>Filter by color</h3>
+
+    @for (color of colors; track color) {
+    <label>
+      <input
+        type="checkbox"
+        [checked]="(colorsFilter$ | async)?.has(color)"
+        (change)="toggleColor(color)"
+      />
+      {{ color }}
+    </label>
+    }
+  </section>
   <ul>
-    @for (collection of this.collections$ | async; track collection.name) {
+    @for (collection of viewCollections$ | async; track collection.name) {
     <li>
       <h2>{{ collection.name }}</h2>
+      <p>{{ collection.colors }}</p>
       <p>{{ collection.createdAt }}</p>
     </li>
     }

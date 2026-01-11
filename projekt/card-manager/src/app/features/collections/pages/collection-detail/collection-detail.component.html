@@ -1,0 +1,21 @@
+@if (collection$ | async; as collection) {
+<section class="collection-detail">
+  <h1>{{ collection.name }}</h1>
+
+  <p>Created at: {{ collection.createdAt }}</p>
+
+  <p>Colors:</p>
+  <ul>
+    @for (color of collection.colors; track color) {
+    <li>{{ color }}</li>
+    }
+  </ul>
+
+  <div class="actions">
+    <button disabled>Edit</button>
+    <button disabled>Delete</button>
+  </div>
+
+  <a routerLink="/collections">← Back to collections</a>
+</section>
+}
