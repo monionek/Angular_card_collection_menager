@@ -1,1 +1,37 @@
-<p>collection-form works!</p>
+<form [formGroup]="collectionForm" (ngSubmit)="onSubmit()">
+  <h2>@if (isEditMode) { Edit Collection } @else { Create Collections }</h2>
+  <div>
+    <label>
+      Name
+      <input type="text" formControlName="name" />
+    </label>
+    @if (collectionForm.controls.name.touched && collectionForm.controls.name.invalid) {
+    <p>
+      @if (collectionForm.controls.name.errors?.['required']) { Name is required } @if
+      (collectionForm.controls.name.errors?.['minlength']) { Name must be at least 3 characters }
+    </p>
+    }
+  </div>
+  <fieldset formGroupName="colors">
+    <legend>Colors</legend>
+    @for (color of ["WHITE", "BLUE", "BLACK", "RED", "GREEN", "COLORLESS"]; track color) {
+    <label>
+      <input type="checkbox" [formControlName]="color" />
+      {{ color }}
+    </label>
+    } @if (collectionForm.get('colors')?.touched && collectionForm.get('colors')?.invalid) {
+    <p>
+      @if (collectionForm.get('colors')?.errors?.['noColorSelected']) { Select at least one color }
+      @if (collectionForm.get('colors')?.errors?.['invalidColorCombination']) { COLORLESS cannot be
+      combined with other colors }
+    </p>
+    }
+  </fieldset>
+  <div>
+    <button type="submit" [disabled]="collectionForm.invalid">
+      @if (isEditMode) { Save changes } @else { Create collection }
+    </button>
+
+    <button type="button" routerLink="/collections">Cancel</button>
+  </div>
+</form>

@@ -1,24 +1,54 @@
 <div class="collections-list">
   <section class="filters">
-    <h3>Filter by color</h3>
+    <h3>Filters</h3>
 
-    @for (color of colors; track color) {
-    <label>
-      <input
-        type="checkbox"
-        [checked]="(colorsFilter$ | async)?.has(color)"
-        (change)="toggleColor(color)"
-      />
-      {{ color }}
-    </label>
-    }
+    <div class="filter-group">
+      <label>
+        Filter by name
+        <input
+          type="text"
+          placeholder="Search by name..."
+          (input)="nameFilterSubject.next($any($event.target).value)"
+        />
+      </label>
+    </div>
+
+    <div class="filter-group">
+      <p>Filter by color</p>
+
+      @for (color of colors; track color) {
+      <label>
+        <input
+          type="checkbox"
+          [checked]="(colorsFilter$ | async)?.has(color)"
+          (change)="toggleColor(color)"
+        />
+        {{ colorLabels[color] }}
+      </label>
+      }
+    </div>
+
+    <div class="filter-group">
+      <label>
+        Sort by
+        <select (change)="changeSort($any($event.target).value)">
+          <option value="nameAsc">Name (A–Z)</option>
+          <option value="nameDesc">Name (Z–A)</option>
+          <option value="dateAsc">Date (oldest)</option>
+          <option value="dateDesc">Date (newest)</option>
+        </select>
+      </label>
+    </div>
   </section>
-  <ul>
-    @for (collection of viewCollections$ | async; track collection.name) {
-    <li>
+
+  <ul class="collection-items">
+    @for (collection of viewCollections$ | async; track collection.id) {
+    <li class="collection-item">
       <h2>{{ collection.name }}</h2>
-      <p>{{ collection.colors }}</p>
-      <p>{{ collection.createdAt }}</p>
+      <p>Colors: {{ collection.colors.join(', ') }}</p>
+      <p>Created at: {{ collection.createdAt }}</p>
+
+      <a [routerLink]="['/collections', collection.id]"> View details </a>
     </li>
     }
   </ul>

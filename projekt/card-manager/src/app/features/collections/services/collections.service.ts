@@ -1,13 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Collection } from '../../models/collection.model';
-import { Observable, of } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { Collection, Color } from '../../models/collection.model';
+import { Observable, of, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CollectionsService {
+  private readonly apiUrl: string = "http://localhost:3000";
+  private readonly http = inject(HttpClient);
 
-  private readonly db: readonly Collection[] = [
+  private db: readonly Collection[] = [
   {
     id: '1',
     name: 'Mono White Aggro',
@@ -66,5 +69,60 @@ export class CollectionsService {
     const collection = this.db.find((c: Collection) => c.id === id) ?? null;
     
     return of(collection);
+  }
+
+  public create(name: string, colors: Color[]): Observable<Collection> {
+    const id: string = crypto.randomUUID();
+    const createdAt: string = new Date().toISOString();
+
+    const newCollection: Collection = {
+      id: id,
+      name: name,
+      createdAt: createdAt,
+      colors: colors
+    };
+
+    this.db = [...this.db, newCollection];
+
+    return of(newCollection);
+    // return this.http.post<Collection>(`${this.apiUrl}/collections`, newCollection);
+  };
+
+  public update(id: string, collection: Collection): Observable<Collection> {
+    const index: number = this.db.findIndex(
+      (c: Collection) => c.id === id
+    );
+
+    if (index === -1) {
+
+      return throwError(() => new Error('Collection not found'));
+    }
+
+    const updatedCollection: Collection = {
+      ...collection,
+      id,
+    };
+
+    this.db = this.db.map((c: Collection) =>
+      c.id === id ? updatedCollection : c
+    );
+
+    return of(updatedCollection);
+  }
+  public delete(id: string): Observable<boolean> {
+    const exists: boolean = this.db.some(
+      (c: Collection) => c.id === id
+    );
+
+    if (!exists) {
+      
+      return throwError(() => new Error('Collection not found'));
+    }
+
+    this.db = this.db.filter(
+      (c: Collection) => c.id !== id
+    );
+
+    return of(true);
   }
 }

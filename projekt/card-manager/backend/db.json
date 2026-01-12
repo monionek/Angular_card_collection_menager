@@ -1,0 +1,23 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "login": "admin",
+      "password": "admin"
+    }
+  ],
+  "collections": [
+    {
+      "id": "1",
+      "name": "Mono White Aggro",
+      "createdAt": "2026-01-10T10:00:00Z",
+      "colors": ["WHITE"]
+    },
+    {
+      "id": "2",
+      "name": "Simic Ramp",
+      "createdAt": "2026-01-08T12:00:00Z",
+      "colors": ["BLUE", "GREEN"]
+    }
+  ]
+}

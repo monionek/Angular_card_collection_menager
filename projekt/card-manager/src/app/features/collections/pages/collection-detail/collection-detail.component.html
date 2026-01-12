@@ -12,8 +12,8 @@
   </ul>
 
   <div class="actions">
-    <button disabled>Edit</button>
-    <button disabled>Delete</button>
+    <button routerLink="/collections/{{ collection.id }}/edit">Edit</button>
+    <button (click)="delete()">Delete</button>
   </div>
 
   <a routerLink="/collections">← Back to collections</a>
