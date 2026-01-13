@@ -1,0 +1,10 @@
+<nav>
+  <button routerLink="/">MainPage</button>
+  <button routerLink="/collections">Collections</button>
+  @if (isLoggedIn$ | async) {
+  <button routerLink="/collections/new">Create new collection</button>
+  <button type="button" (click)="logout()">Logout</button>
+  } @else {
+  <button routerLink="login">Login</button>
+  }
+</nav>

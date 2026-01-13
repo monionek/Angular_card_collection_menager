@@ -1,11 +1,7 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  },
   {
     path: 'login',
     loadComponent: () =>
@@ -23,18 +19,25 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/collections/pages/collection-form/collection-form.component')
         .then((m) => m.CollectionFormComponent),
+    canActivate: [authGuard]
   },
   {
     path: 'collections/:id/edit',
     loadComponent: () =>
       import('./features/collections/pages/collection-form/collection-form.component')
         .then((m) => m.CollectionFormComponent),
+    canActivate: [authGuard]
   },
   {
     path: 'collections/:id',
     loadComponent: () =>
       import('./features/collections/pages/collection-detail/collection-detail.component')
         .then((m) => m.CollectionDetailComponent),
+  },
+  {
+    path: '',
+    loadComponent: () => import('./core/pages/main-page/main-page.component')
+      .then((m) => m.MainPageComponent)
   },
   {
     path: '**',

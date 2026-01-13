@@ -65,6 +65,7 @@ export class CollectionFormComponent {
      const updatedCollection: Collection = {
        id: this.collectionId,
        name,
+       cards: [],
        createdAt: new Date().toISOString(),
        colors: selectedColors,
      };

@@ -1,8 +1,16 @@
+export interface Card {
+    readonly name: string,
+    readonly color: readonly Color[],
+    readonly manaCost: number,
+    readonly attack: number,
+    readonly health: number
+}
+
 export interface Collection {
     readonly id: string,
     readonly name: string,
     readonly createdAt: string,
-    // readonly Cards: Card[]
+    readonly cards: readonly Card[]
     readonly colors: readonly Color[];
 }
 

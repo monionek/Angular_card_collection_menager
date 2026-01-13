@@ -1,0 +1,9 @@
+<div>
+  <h1>Welcome to Magic the gathering card collections menager!</h1>
+  @if (isLoggedIn$ | async) {
+  <button routerLink="/collections/new">Create new collection</button>
+  } @else {
+  <button routerLink="/login">To login</button>
+  }
+  <button routerLink="/collections">To Collections</button>
+</div>

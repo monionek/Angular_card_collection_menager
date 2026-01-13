@@ -8,16 +8,38 @@
   ],
   "collections": [
     {
-      "id": "1",
-      "name": "Mono White Aggro",
-      "createdAt": "2026-01-10T10:00:00Z",
-      "colors": ["WHITE"]
+      "id": "c019097e-5e77-4362-a697-967d9dd900d8",
+      "name": "Red Mono Aggro",
+      "createdAt": "2026-01-13T19:34:40.496Z",
+      "colors": [
+        "RED"
+      ]
     },
     {
-      "id": "2",
-      "name": "Simic Ramp",
-      "createdAt": "2026-01-08T12:00:00Z",
-      "colors": ["BLUE", "GREEN"]
+      "id": "a9f3cec2-d39c-444b-9082-e1cb8e32ea31",
+      "name": "Red Green Aggro",
+      "createdAt": "2026-01-13T19:52:28.173Z",
+      "colors": [
+        "RED",
+        "GREEN"
+      ]
+    },
+    {
+      "id": "f60af9dd-e0e7-4119-b3d8-99aeed3a1dbb",
+      "name": "Blue White Midrange",
+      "createdAt": "2026-01-13T19:52:43.228Z",
+      "colors": [
+        "WHITE",
+        "BLUE"
+      ]
+    },
+    {
+      "id": "69d9b69c-0465-4999-960e-4a2552dc907a",
+      "name": "Mono White Vampire Aggro",
+      "createdAt": "2026-01-13T19:53:09.423Z",
+      "colors": [
+        "WHITE"
+      ]
     }
   ]
 }

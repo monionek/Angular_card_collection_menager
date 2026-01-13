@@ -5,6 +5,7 @@ import { LoginFormModel } from '../../../models/loginForm.model';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from '../../../../core/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
+  private readonly notificationService: NotificationService = inject(NotificationService);
   private readonly authService: AuthService = inject(AuthService);
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly router = inject(Router);
@@ -23,8 +25,8 @@ export class LoginComponent {
     password: this.formBuilder.control('', { validators: [Validators.required]})
   });
 
-  private handleLoginError(error: HttpErrorResponse): Observable<never> {
-    console.log(error);
+  private handleLoginError(_error: HttpErrorResponse): Observable<never> {
+    this.notificationService.error('Invalid login or password');
     
     return EMPTY;
   }
@@ -35,8 +37,7 @@ export class LoginComponent {
     const {login, password} = this.loginForm.getRawValue();
 
     this.authService.login(login, password).pipe(
-      tap((value: string) => { 
-        this.authService.saveAuthToken(value);
+      tap(() => { 
         void this.router.navigate(['/collections']);
       }),
       catchError((error: HttpErrorResponse) => {

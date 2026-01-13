@@ -5,6 +5,7 @@ import { Observable, switchMap, of, map } from 'rxjs';
 import { Collection } from '../../../models/collection.model';
 import { AsyncPipe } from '@angular/common';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-collection-detail',
@@ -15,9 +16,11 @@ import { NotificationService } from '../../../../core/services/notification.serv
 })
 export class CollectionDetailComponent {
   private readonly notificationService: NotificationService = inject(NotificationService);
+  private readonly authService: AuthService = inject(AuthService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly collectionsService: CollectionsService = inject(CollectionsService);
   private readonly router: Router = inject(Router);
+  public readonly isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
   private collectionId: string | null = null;
   public readonly collection$: Observable<Collection | null> =
     this.route.paramMap.pipe(

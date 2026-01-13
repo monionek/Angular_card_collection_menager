@@ -10,11 +10,12 @@
     <li>{{ color }}</li>
     }
   </ul>
-
+  @if (isLoggedIn$ | async) {
   <div class="actions">
     <button routerLink="/collections/{{ collection.id }}/edit">Edit</button>
     <button (click)="delete()">Delete</button>
   </div>
+  }
 
   <a routerLink="/collections">← Back to collections</a>
 </section>

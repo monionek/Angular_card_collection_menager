@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, tap, BehaviorSubject } from 'rxjs';
 
 interface LoginResponse {
   readonly token: string;
@@ -15,9 +15,19 @@ export class AuthService {
 
   private token: string | null = null;
 
+  private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  public readonly isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
+
   public constructor() {
     this.token = localStorage.getItem('token');
+    if (localStorage.getItem('token')) {
+      this.changeIsLoggedIn(true);
+    } else {
+      this.changeIsLoggedIn(false);
+    }
   }
+
   public getAuthToken(): string | null {
     return this.token;
   }
@@ -33,6 +43,7 @@ export class AuthService {
         tap((response) => {
           this.token = response.token;
           localStorage.setItem('token', response.token);
+          this.changeIsLoggedIn(true);
         }),
         map(() => void 0)
       );
@@ -41,5 +52,10 @@ export class AuthService {
   public logout(): void {
     this.token = null;
     localStorage.removeItem('token');
+    this.changeIsLoggedIn(false);
+  }
+
+  private changeIsLoggedIn(isLoggedIn: boolean): void {
+    this.isLoggedInSubject.next(isLoggedIn);
   }
 }
