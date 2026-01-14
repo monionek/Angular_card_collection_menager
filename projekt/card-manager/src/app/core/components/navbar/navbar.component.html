@@ -1,10 +1,16 @@
-<nav>
-  <button routerLink="/">MainPage</button>
-  <button routerLink="/collections">Collections</button>
-  @if (isLoggedIn$ | async) {
-  <button routerLink="/collections/new">Create new collection</button>
-  <button type="button" (click)="logout()">Logout</button>
-  } @else {
-  <button routerLink="login">Login</button>
-  }
+<nav class="navbar">
+  <div class="nav-left">
+    <a class="brand" routerLink="/">MTG Manager</a>
+
+    <a routerLink="/collections">Collections</a>
+  </div>
+
+  <div class="nav-right">
+    @if (isLoggedIn$ | async) {
+    <a routerLink="/collections/new">New collection</a>
+    <button type="button" class="logout" (click)="logout()">Logout</button>
+    } @else {
+    <a routerLink="/login">Login</a>
+    }
+  </div>
 </nav>

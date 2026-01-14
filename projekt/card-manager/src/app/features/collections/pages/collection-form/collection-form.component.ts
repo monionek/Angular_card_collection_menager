@@ -1,19 +1,21 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { colorsValidator } from './colorValidator';
 import { Collection, Color } from '../../../models/collection.model';
 import { CollectionsService } from '../../services/collections.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { EMPTY, map, switchMap, tap } from 'rxjs';
+import { LowerCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-collection-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink, LowerCasePipe],
   templateUrl: './collection-form.component.html',
   styleUrl: './collection-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CollectionFormComponent {
+export class CollectionFormComponent implements OnInit {
   private readonly notificationService: NotificationService = inject(NotificationService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly formBuilder: NonNullableFormBuilder = inject(NonNullableFormBuilder);
@@ -21,6 +23,8 @@ export class CollectionFormComponent {
   private readonly router: Router = inject(Router);
   public isEditMode: boolean = false;
   private collectionId: string | null = null;
+  private currentCollection: Collection | null = null;
+
 
   public readonly collectionForm = this.formBuilder.group({
     name: this.formBuilder.control('', {
@@ -36,16 +40,41 @@ export class CollectionFormComponent {
         COLORLESS: this.formBuilder.control(false),
       },
     { validators: colorsValidator() }
-),
+  ),
+  cards:  this.formBuilder.array<FormGroup<{ name: FormControl<string> }>>([])
   });
 
-  public constructor() {
-    this.route.paramMap.subscribe((paramMap) => {
-      const id: string | null = paramMap.get('id');
+  public ngOnInit(): void {
+    this.route.paramMap.pipe(
+      map((paramMap) => paramMap.get('id')),
+      tap((id) => {
+        this.collectionId = id;
+        this.isEditMode = !!id;
+      }),
+      switchMap((id) => id ? this.collectionsService.getById(id) : EMPTY),
+      tap((collection) => {
+        this.patchCollection(collection);
+        this.currentCollection = collection;})
+    ).subscribe();
+  }
 
-      this.collectionId = id;
-      this.isEditMode = id !== null;
+  public get cardsFormArray(): FormArray<FormGroup<{name: FormControl<string>}>> {
+
+    return this.collectionForm.controls.cards;
+  };
+
+  private createCardForm(): FormGroup {
+    return this.formBuilder.group({
+      name: this.formBuilder.control('', Validators.minLength(3))
     });
+  }
+
+  public removeCard(index: number): void {
+    this.cardsFormArray.removeAt(index);
+  };
+
+  public addCard(): void {
+    this.cardsFormArray.push(this.createCardForm());
   }
 
   public onSubmit(): void {
@@ -55,18 +84,19 @@ export class CollectionFormComponent {
      return;
    }
 
-   const { name, colors } = this.collectionForm.getRawValue();
+   const { name, colors, cards } = this.collectionForm.getRawValue();
 
+
+  const cardNames: string[] = cards.map((card) => card.name);
    const selectedColors: Color[] = Object.entries(colors)
      .filter(([, selected]) => selected)
      .map(([color]) => color as Color);
 
-   if (this.isEditMode && this.collectionId !== null) {
+   if (this.isEditMode && this.collectionId !== null && this.currentCollection) {
      const updatedCollection: Collection = {
-       id: this.collectionId,
+       ...this.currentCollection,
        name,
-       cards: [],
-       createdAt: new Date().toISOString(),
+       cards: cardNames,
        colors: selectedColors,
      };
 
@@ -86,7 +116,7 @@ export class CollectionFormComponent {
    }
 
    this.collectionsService
-     .create(name, selectedColors)
+     .create(name, selectedColors, cardNames)
      .subscribe({
        next: () => {
         this.notificationService.success('Collection created');
@@ -98,4 +128,22 @@ export class CollectionFormComponent {
      });
   }
 
+  private patchCollection(collection: Collection): void {
+          const { name, colors, cards} = collection;
+          this.collectionForm.controls.name.setValue(name);
+          Object.keys(this.collectionForm.controls.colors.controls).forEach(
+          (color) => {
+            this.collectionForm.controls.colors.controls[color as Color].setValue(colors.includes(color as Color));
+          });
+          
+          this.cardsFormArray.clear();
+          cards.forEach((cardName) => {
+            this.cardsFormArray.push(
+              this.formBuilder.group({
+                name: this.formBuilder.control(cardName, Validators.minLength(3))
+              })
+            );
+          }
+        );
+      }
 }

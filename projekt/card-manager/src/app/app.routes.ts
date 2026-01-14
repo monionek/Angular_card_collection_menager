@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { collectionNotFoundResolverResolver } from './core/resolvers/collection-not-found-resolver.resolver';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/collections/pages/collection-detail/collection-detail.component')
         .then((m) => m.CollectionDetailComponent),
+    resolve: {
+    collection: collectionNotFoundResolverResolver
+  }
   },
   {
     path: '',

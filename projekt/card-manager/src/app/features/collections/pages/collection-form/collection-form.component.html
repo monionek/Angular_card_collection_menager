@@ -1,32 +1,50 @@
-<form [formGroup]="collectionForm" (ngSubmit)="onSubmit()">
-  <h2>@if (isEditMode) { Edit Collection } @else { Create Collections }</h2>
+<form class="collection-form" [formGroup]="collectionForm" (ngSubmit)="onSubmit()">
+  <h2>@if (isEditMode) { Edit Collection } @else { Create Collection }</h2>
+
   <div>
     <label>
       Name
       <input type="text" formControlName="name" />
     </label>
+
     @if (collectionForm.controls.name.touched && collectionForm.controls.name.invalid) {
-    <p>
+    <p class="form-error">
       @if (collectionForm.controls.name.errors?.['required']) { Name is required } @if
       (collectionForm.controls.name.errors?.['minlength']) { Name must be at least 3 characters }
     </p>
     }
   </div>
+
   <fieldset formGroupName="colors">
     <legend>Colors</legend>
+
     @for (color of ["WHITE", "BLUE", "BLACK", "RED", "GREEN", "COLORLESS"]; track color) {
-    <label>
+    <label class="color-option color-{{ color | lowercase }}">
       <input type="checkbox" [formControlName]="color" />
-      {{ color }}
+      <span>{{ color }}</span>
     </label>
     } @if (collectionForm.get('colors')?.touched && collectionForm.get('colors')?.invalid) {
-    <p>
+    <p class="form-error">
       @if (collectionForm.get('colors')?.errors?.['noColorSelected']) { Select at least one color }
       @if (collectionForm.get('colors')?.errors?.['invalidColorCombination']) { COLORLESS cannot be
       combined with other colors }
     </p>
     }
   </fieldset>
+
+  <section formArrayName="cards">
+    <h3>Cards</h3>
+
+    @for (card of cardsFormArray.controls; let i = $index; track i) {
+    <div [formGroupName]="i">
+      <input type="text" formControlName="name" />
+      <button type="button" (click)="removeCard(i)">Delete Card</button>
+    </div>
+    }
+  </section>
+
+  <button class="add-card-button" type="button" (click)="addCard()">Add Card</button>
+
   <div>
     <button type="submit" [disabled]="collectionForm.invalid">
       @if (isEditMode) { Save changes } @else { Create collection }

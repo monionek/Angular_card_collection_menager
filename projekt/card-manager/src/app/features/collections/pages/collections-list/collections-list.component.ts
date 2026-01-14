@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CollectionsService } from '../../services/collections.service';
 import { BehaviorSubject, combineLatest, Observable, map } from 'rxjs';
 import { Collection, Color, SortMode } from '../../../models/collection.model';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, LowerCasePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-collections-list',
-  imports: [AsyncPipe, RouterLink],
+  imports: [AsyncPipe, RouterLink, LowerCasePipe],
   templateUrl: './collections-list.component.html',
   styleUrl: './collections-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,39 +35,32 @@ export class CollectionsListComponent {
   public readonly viewCollections$: Observable<readonly Collection[]> = combineLatest([this.collections$, this.sortMode$, this.colorsFilter$, this.nameFilter$])
   .pipe(
     map(([collections, sortMode, colors, nameFilter]) => {
-  let collectionCopy = [...collections];
 
-  if (nameFilter.trim().length > 0) {
-    const lower = nameFilter.toLowerCase();
-    collectionCopy = collectionCopy.filter((c) =>
-      c.name.toLowerCase().includes(lower)
-    );
-  }
-
-  if (colors.size > 0) {
-    collectionCopy = collectionCopy.filter(
-      (c) =>
-        c.colors.length === colors.size &&
-        c.colors.every((color) => colors.has(color))
-    );
-  }
+  let result: Collection[] = this.nameFilterCollection([...collections], nameFilter);
+  result = this.colorFilterCollection(result, colors);
 
   switch (sortMode) {
     case 'nameAsc':
-      collectionCopy.sort((a, b) => a.name.localeCompare(b.name));
+      result.sort((a, b) => a.name.localeCompare(b.name));
       break;
     case 'nameDesc':
-      collectionCopy.sort((a, b) => b.name.localeCompare(a.name));
+      result.sort((a, b) => b.name.localeCompare(a.name));
       break;
     case 'dateAsc':
-      collectionCopy.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+      result.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
       break;
     case 'dateDesc':
-      collectionCopy.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+      result.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+      break;
+    case 'mostCards':
+      result.sort((a, b) => b.cards.length - a.cards.length );
+      break;
+    case 'leastCards':
+      result.sort((a, b) => a.cards.length - b.cards.length );
       break;
   }
 
-  return collectionCopy;
+  return result;
 }));
 
   public changeSort(mode: SortMode): void {
@@ -83,6 +76,28 @@ export class CollectionsListComponent {
     }
     this.colorsFilterSubject.next(next);
   }
+  private nameFilterCollection(collectionsCopy: Collection[], name: string): Collection[]  {
+    if (name.trim().length === 0) {
+      return collectionsCopy;
+    }
+    const lower = name.toLowerCase();
 
+    return collectionsCopy.filter((c) =>
+      c.name.toLowerCase().includes(lower)
+    );
+  }
+
+  private colorFilterCollection(collectionsCopy: Collection[], colorsFilter: ReadonlySet<Color>): Collection[] {
+  if (colorsFilter.size > 0) {
+    return collectionsCopy.filter(
+      (c) =>
+        c.colors.length === colorsFilter.size &&
+        c.colors.every((color) => colorsFilter.has(color))
+    );
+  }
+
+  return collectionsCopy;
+
+  }
 }
 

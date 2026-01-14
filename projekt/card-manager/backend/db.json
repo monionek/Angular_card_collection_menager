@@ -6,40 +6,68 @@
       "password": "admin"
     }
   ],
-  "collections": [
-    {
-      "id": "c019097e-5e77-4362-a697-967d9dd900d8",
-      "name": "Red Mono Aggro",
-      "createdAt": "2026-01-13T19:34:40.496Z",
-      "colors": [
-        "RED"
-      ]
-    },
-    {
-      "id": "a9f3cec2-d39c-444b-9082-e1cb8e32ea31",
-      "name": "Red Green Aggro",
-      "createdAt": "2026-01-13T19:52:28.173Z",
-      "colors": [
-        "RED",
-        "GREEN"
-      ]
-    },
-    {
-      "id": "f60af9dd-e0e7-4119-b3d8-99aeed3a1dbb",
-      "name": "Blue White Midrange",
-      "createdAt": "2026-01-13T19:52:43.228Z",
-      "colors": [
-        "WHITE",
-        "BLUE"
-      ]
-    },
-    {
-      "id": "69d9b69c-0465-4999-960e-4a2552dc907a",
-      "name": "Mono White Vampire Aggro",
-      "createdAt": "2026-01-13T19:53:09.423Z",
-      "colors": [
-        "WHITE"
-      ]
-    }
-  ]
+"collections": [
+  {
+    "id": "1",
+    "name": "Blue White Midrange",
+    "createdAt": "2026-01-10T10:00:00Z",
+    "colors": ["WHITE", "BLUE"],
+    "cards": ["Counterspell", "Teferi", "Supreme Verdict"]
+  },
+  {
+    "id": "2",
+    "name": "Mono Red Aggro",
+    "createdAt": "2026-01-12T14:30:00Z",
+    "colors": ["RED"],
+    "cards": ["Lightning Bolt", "Goblin Guide", "Monastery Swiftspear", "Shock"]
+  },
+  {
+    "id": "3",
+    "name": "Green Stompy",
+    "createdAt": "2026-01-08T09:15:00Z",
+    "colors": ["GREEN"],
+    "cards": ["Llanowar Elves", "Steel Leaf Champion"]
+  },
+  {
+    "id": "4",
+    "name": "Esper Control",
+    "createdAt": "2026-01-15T18:45:00Z",
+    "colors": ["WHITE", "BLUE", "BLACK"],
+    "cards": [
+      "Thoughtseize",
+      "Counterspell",
+      "Teferi",
+      "Fatal Push",
+      "Supreme Verdict"
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Five Color Goodstuff",
+    "createdAt": "2026-01-20T12:00:00Z",
+    "colors": ["WHITE", "BLUE", "BLACK", "RED", "GREEN"],
+    "cards": [
+      "Omnath",
+      "Lightning Bolt",
+      "Thoughtseize",
+      "Growth Spiral",
+      "Teferi",
+      "Fatal Push"
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Colorless Artifacts",
+    "createdAt": "2026-01-05T08:00:00Z",
+    "colors": ["COLORLESS"],
+    "cards": ["Sol Ring", "Wurmcoil Engine"]
+  },
+  {
+    "id": "7",
+    "name": "Azorius Control Lite",
+    "createdAt": "2026-01-18T16:20:00Z",
+    "colors": ["WHITE", "BLUE"],
+    "cards": []
+  }
+]
 }

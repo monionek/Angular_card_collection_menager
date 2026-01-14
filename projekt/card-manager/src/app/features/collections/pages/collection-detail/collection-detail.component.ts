@@ -3,13 +3,13 @@ import { CollectionsService } from '../../services/collections.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Observable, switchMap, of, map} from 'rxjs';
 import { Collection } from '../../../models/collection.model';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, LowerCasePipe } from '@angular/common';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-collection-detail',
-  imports: [AsyncPipe, RouterLink],
+  imports: [AsyncPipe, RouterLink, LowerCasePipe],
   templateUrl: './collection-detail.component.html',
   styleUrl: './collection-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

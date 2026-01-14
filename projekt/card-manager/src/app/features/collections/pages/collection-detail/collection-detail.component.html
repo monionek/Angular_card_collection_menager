@@ -2,22 +2,32 @@
 <section class="collection-detail">
   <h1>{{ collection.name }}</h1>
 
-  <p>Created at: {{ collection.createdAt }}</p>
+  <h2>Created at: {{ collection.createdAt }}</h2>
 
-  <p>Colors:</p>
-  <ul>
+  <h2>Colors:</h2>
+  <ul class="colors-list">
     @for (color of collection.colors; track color) {
-    <li>{{ color }}</li>
+    <li class="color-badge color-{{ color | lowercase }}">
+      {{ color }}
+    </li>
     }
   </ul>
   @if (isLoggedIn$ | async) {
   <div class="actions">
-    <button routerLink="/collections/{{ collection.id }}/edit">Edit</button>
-    <button (click)="delete()">Delete</button>
+    <button class="action-button edit" routerLink="/collections/{{ collection.id }}/edit">
+      Edit
+    </button>
+    <button class="action-button delete" (click)="delete()">Delete</button>
   </div>
   }
 
-  <section class="cards"></section>
+  <section class="cards">
+    <ul class="cards-list">
+      @for (card of collection.cards; track card) {
+      <li>{{ card }}</li>
+      }
+    </ul>
+  </section>
 
   <a routerLink="/collections">← Back to collections</a>
 </section>

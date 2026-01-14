@@ -18,11 +18,12 @@ export class CollectionsService {
     return this.http.get<Collection>(`${this.apiUrl}/${id}`);
   }
 
-  public create(name: string, colors: Color[]): Observable<Collection> {
+  public create(name: string, colors: Color[], cards: string[]): Observable<Collection> {
     const newCollection: Collection = {
       id: crypto.randomUUID(),
       name,
       createdAt: new Date().toISOString(),
+      cards,
       colors,
     };
 

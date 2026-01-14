@@ -1,6 +1,12 @@
-<div class="page-not-found-div">
-  Sorry this Page could not be accessed
-  <p>Return to Previous Site</p>
-  <a routerLink="/">Return to Home</a>
-  <button type="button" (click)="goBack()">Return to previous site</button>
+<div class="page-not-found">
+  <h1>404</h1>
+
+  <p class="message">Sorry, this page could not be accessed.</p>
+
+  <p class="hint">You can return to a safe place:</p>
+
+  <div class="actions">
+    <a class="action-link" routerLink="/">Go to Home</a>
+    <button class="action-button" type="button" (click)="goBack()">Go back</button>
+  </div>
 </div>

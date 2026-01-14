@@ -1,0 +1,44 @@
+.app-footer {
+    border-top: 1px solid #eee;
+    margin-top: 4rem;
+    padding: 1.5rem 1rem;
+}
+
+.footer-content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0 auto;
+    max-width: 960px;
+    text-align: center;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 1rem;
+
+    a {
+        color: #555;
+        font-size: 0.75rem;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+p {
+    color: #777;
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}

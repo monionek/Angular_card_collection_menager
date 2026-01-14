@@ -1,9 +1,11 @@
 @if (notification$ | async; as notification) {
-<div
-  class="toast"
-  [class.success]="notification.type === 'success'"
-  [class.error]="notification.type === 'error'"
->
-  {{ notification.message }}
+<div class="toast-container">
+  <div
+    class="toast"
+    [class.success]="notification.type === 'success'"
+    [class.error]="notification.type === 'error'"
+  >
+    {{ notification.message }}
+  </div>
 </div>
 }

@@ -1,9 +1,34 @@
-<div>
-  <h1>Welcome to Magic the gathering card collections menager!</h1>
-  @if (isLoggedIn$ | async) {
-  <button routerLink="/collections/new">Create new collection</button>
-  } @else {
-  <button routerLink="/login">To login</button>
-  }
-  <button routerLink="/collections">To Collections</button>
-</div>
+<section class="main-page">
+  <div class="hero">
+    <h1>Magic: The Gathering Collection Manager</h1>
+
+    <p class="subtitle">Build, organize and explore your Magic card collections in one place.</p>
+
+    <div class="actions">
+      @if (isLoggedIn$ | async) {
+      <a class="primary-action" routerLink="/collections/new"> Create new collection </a>
+      } @else {
+      <a class="primary-action" routerLink="/login"> Login to get started </a>
+      }
+
+      <a class="secondary-action" routerLink="/collections"> Browse collections </a>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>Organize</h3>
+      <p>Create collections with colors and cards.</p>
+    </div>
+
+    <div class="feature">
+      <h3>Filter & Sort</h3>
+      <p>Quickly find collections by name, color or size.</p>
+    </div>
+
+    <div class="feature">
+      <h3>Manage</h3>
+      <p>Edit, update and maintain your decks easily.</p>
+    </div>
+  </div>
+</section>

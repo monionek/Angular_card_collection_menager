@@ -17,7 +17,7 @@
       <p>Filter by color</p>
 
       @for (color of colors; track color) {
-      <label>
+      <label class="color-option color-{{ color | lowercase }}">
         <input
           type="checkbox"
           [checked]="(colorsFilter$ | async)?.has(color)"
@@ -36,6 +36,8 @@
           <option value="nameDesc">Name (Z–A)</option>
           <option value="dateAsc">Date (oldest)</option>
           <option value="dateDesc">Date (newest)</option>
+          <option value="mostCards">Most Cards</option>
+          <option value="leastCards">Least Cards</option>
         </select>
       </label>
     </div>
@@ -45,9 +47,15 @@
     @for (collection of viewCollections$ | async; track collection.id) {
     <li class="collection-item">
       <h2>{{ collection.name }}</h2>
-      <p>Colors: {{ collection.colors.join(', ') }}</p>
+      <ul class="colors-list">
+        @for (color of collection.colors; track color) {
+        <li class="color-badge color-{{ color | lowercase }}">
+          {{ color }}
+        </li>
+        }
+      </ul>
+      <p>Card count: {{ collection.cards.length }}</p>
       <p>Created at: {{ collection.createdAt }}</p>
-
       <a [routerLink]="['/collections', collection.id]"> View details </a>
     </li>
     }
