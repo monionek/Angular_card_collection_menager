@@ -34,22 +34,13 @@ Skopiuj kod
 npm run backend
 Backend będzie dostępny pod adresem:
 
-arduino
-Skopiuj kod
-http://localhost:3000
-Dane zapisywane są lokalnie w pliku backend/db.json.
-
 🚀 Uruchomienie frontendu (Angular)
 W osobnym terminalu, również w katalogu głównym projektu:
 
 bash
 Skopiuj kod
-npm start
+npm run start
 Aplikacja frontendowa będzie dostępna pod adresem:
-
-arduino
-Skopiuj kod
-http://localhost:4200
 ```
 
 🔐 Logowanie
