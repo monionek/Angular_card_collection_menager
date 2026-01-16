@@ -14,38 +14,23 @@ Do uruchomienia projektu wymagane są:
 - **npm** – wersja **9+**
 - **Angular CLI** – wersja **21**
 
-Sprawdzenie wersji:
+Włączanie aplikacji:
 
 ```bash
-node -v
-npm -v
-ng version
-📦 Instalacja zależności
-W katalogu głównym projektu:
-
-bash
-Skopiuj kod
-npm install
-🚀 Uruchomienie backendu (JSON Server)
-Backend uruchamiany jest z katalogu głównego projektu:
-
-bash
-Skopiuj kod
 npm run backend
-Backend będzie dostępny pod adresem:
-
-🚀 Uruchomienie frontendu (Angular)
-W osobnym terminalu, również w katalogu głównym projektu:
-
-bash
-Skopiuj kod
-npm run start
-Aplikacja frontendowa będzie dostępna pod adresem:
 ```
+
+W drugim terminalu:
+
+```bash
+npm run start
+```
+
+Aplikacja jest dostępne pod adresem http://localhost:4200
 
 🔐 Logowanie
 
-Logowanie jest mockowane – backend zwraca token jako zwykły string,
+Logowanie jest mockowane – backend zwraca token jako zwykły string
 który zapisywany jest w localStorage.
 
 Przykładowe dane:
