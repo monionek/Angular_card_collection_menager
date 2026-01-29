@@ -103,7 +103,9 @@
         "WHITE",
         "BLUE"
       ],
-      "cards": []
+      "cards": [
+        "konik"
+      ]
     }
   ]
 }

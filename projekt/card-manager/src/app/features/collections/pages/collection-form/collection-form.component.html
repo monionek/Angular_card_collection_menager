@@ -18,14 +18,14 @@
   <fieldset formGroupName="colors">
     <legend>Colors</legend>
 
-    @for (color of ["WHITE", "BLUE", "BLACK", "RED", "GREEN", "COLORLESS"]; track color) {
+    @for (color of colors; track color) {
     <label class="color-option color-{{ color | lowercase }}">
       <input type="checkbox" [formControlName]="color" />
       <span>{{ color }}</span>
     </label>
-    } @if (collectionForm.get('colors')?.touched && collectionForm.get('colors')?.invalid) {
+    } @if (  collectionForm.controls.colors.touched && collectionForm.controls.colors.invalid) {
     <p class="form-error">
-      @if (collectionForm.get('colors')?.errors?.['noColorSelected']) { Select at least one color }
+      @if (collectionForm.controls.colors.errors?.['noColorSelected']) { Select at least one color }
       @if (collectionForm.get('colors')?.errors?.['invalidColorCombination']) { COLORLESS cannot be
       combined with other colors }
     </p>

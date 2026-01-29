@@ -1,6 +1,6 @@
-import { FormControl } from "@angular/forms";
+import { FormGroup, FormControl } from "@angular/forms";
 
-export interface LoginFormModel {
+export type LoginForm = FormGroup <{
     login: FormControl<string>,
     password: FormControl<string>
-}
+}>

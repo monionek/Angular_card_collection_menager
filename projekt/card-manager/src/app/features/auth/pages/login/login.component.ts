@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
-import { LoginFormModel } from '../../../models/loginForm.model';
+import { LoginForm } from '../../../models/loginForm.model';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -20,7 +20,7 @@ export class LoginComponent {
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly router = inject(Router);
 
-  public readonly loginForm = this.formBuilder.group<LoginFormModel>({
+  public readonly loginForm: LoginForm = this.formBuilder.group({
     login: this.formBuilder.control('', { validators: [Validators.required]}),
     password: this.formBuilder.control('', { validators: [Validators.required]})
   });

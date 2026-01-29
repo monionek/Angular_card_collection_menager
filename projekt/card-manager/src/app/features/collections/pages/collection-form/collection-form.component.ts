@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { colorsValidator } from './colorValidator';
 import { Collection, Color } from '../../../models/collection.model';
@@ -7,6 +7,7 @@ import { CollectionsService } from '../../services/collections.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { EMPTY, map, switchMap, tap } from 'rxjs';
 import { LowerCasePipe } from '@angular/common';
+import { CollectionForm, CardForm} from '../../../models/collectionForm.model'
 
 @Component({
   selector: 'app-collection-form',
@@ -24,9 +25,17 @@ export class CollectionFormComponent implements OnInit {
   public isEditMode: boolean = false;
   private collectionId: string | null = null;
   private currentCollection: Collection | null = null;
+  public readonly colors: readonly Color[] = [
+  'WHITE',
+  'BLUE',
+  'BLACK',
+  'RED',
+  'GREEN',
+  'COLORLESS',
+];
 
 
-  public readonly collectionForm = this.formBuilder.group({
+  public readonly collectionForm: CollectionForm = this.formBuilder.group({
     name: this.formBuilder.control('', {
       validators: [Validators.required, Validators.minLength(3)],
     }),
@@ -41,7 +50,7 @@ export class CollectionFormComponent implements OnInit {
       },
     { validators: colorsValidator() }
   ),
-  cards:  this.formBuilder.array<FormGroup<{ name: FormControl<string> }>>([])
+  cards:  this.formBuilder.array<CardForm>([])
   });
 
   public ngOnInit(): void {
@@ -58,12 +67,12 @@ export class CollectionFormComponent implements OnInit {
     ).subscribe();
   }
 
-  public get cardsFormArray(): FormArray<FormGroup<{name: FormControl<string>}>> {
+  public get cardsFormArray(): FormArray<CardForm> {
 
     return this.collectionForm.controls.cards;
   };
 
-  private createCardForm(): FormGroup {
+  private createCardForm(): CardForm {
     return this.formBuilder.group({
       name: this.formBuilder.control('', Validators.minLength(3))
     });
