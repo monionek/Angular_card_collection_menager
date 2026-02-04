@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../../core/services/auth.service';
 import { LoginForm } from '../../../models/loginForm.model';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { LoginService } from '../../../../core/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
 })
 export class LoginComponent {
   private readonly notificationService: NotificationService = inject(NotificationService);
-  private readonly authService: AuthService = inject(AuthService);
+  private readonly loginService: LoginService = inject(LoginService);
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly router = inject(Router);
 
@@ -36,7 +36,7 @@ export class LoginComponent {
 
     const {login, password} = this.loginForm.getRawValue();
 
-    this.authService.login(login, password).pipe(
+    this.loginService.login(login, password).pipe(
       tap(() => { 
         void this.router.navigate(['/collections']);
       }),
