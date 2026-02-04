@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CollectionsService } from '../../services/collections.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Observable, switchMap, of, map} from 'rxjs';
+import { Observable, switchMap, map, tap, EMPTY} from 'rxjs';
 import { Collection } from '../../../models/collection.model';
 import { AsyncPipe, LowerCasePipe } from '@angular/common';
 import { NotificationService } from '../../../../core/services/notification.service';
@@ -24,17 +24,11 @@ export class CollectionDetailComponent {
   private collectionId: string | null = null;
   public readonly collection$: Observable<Collection | null> =
     this.route.paramMap.pipe(
-      map((paramMap) => {
-        const id = paramMap.get('id');
-        this.collectionId = id;
-        
-        return id;
-        }),
+      map((paramMap) => paramMap.get('id')),
+      tap((id: string | null) => this.collectionId = id),
       switchMap((id: string | null) => {
         if (id === null) {
-          void this.router.navigate(['/not-found']);
-
-          return of<Collection | null>(null);
+          return EMPTY;
         }
         
         return this.collectionsService.getById(id);

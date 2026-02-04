@@ -42,7 +42,9 @@
     }
 }
 
-@media (min-width: 768px) {
+/* ✅ nowa składnia */
+
+@media (width >=768px) {
     .toast-container {
         justify-content: flex-end;
         padding-right: 1.5rem;

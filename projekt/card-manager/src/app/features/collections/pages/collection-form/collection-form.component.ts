@@ -7,7 +7,7 @@ import { CollectionsService } from '../../services/collections.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { EMPTY, map, switchMap, tap } from 'rxjs';
 import { LowerCasePipe } from '@angular/common';
-import { CollectionForm, CardForm} from '../../../models/collectionForm.model'
+import { CollectionForm, CardForm} from '../../../models/collectionForm.model';
 
 @Component({
   selector: 'app-collection-form',

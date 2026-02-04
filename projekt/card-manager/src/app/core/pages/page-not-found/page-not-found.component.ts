@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-page-not-found',
@@ -12,9 +11,4 @@ import { Location } from '@angular/common';
 export class PageNotFoundComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
-  private readonly location: Location = inject(Location);
-  
-  public goBack(): void {
-    this.location.back();
-  }
 }

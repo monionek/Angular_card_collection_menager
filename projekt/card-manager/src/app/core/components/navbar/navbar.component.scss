@@ -47,7 +47,9 @@ button {
     color: #c00;
 }
 
-@media (min-width: 768px) {
+/* ✅ nowa składnia */
+
+@media (width >=768px) {
     .navbar {
         padding: 1rem 2rem;
     }

@@ -17,7 +17,7 @@ export class CollectionsListComponent {
   private readonly collectionsService = inject(CollectionsService);
   public readonly colors: readonly Color[] = ['WHITE', 'BLUE', 'BLACK', 'RED', 'GREEN', 'COLORLESS'];
   private readonly sortModeSubject: BehaviorSubject<SortMode> = new BehaviorSubject<SortMode>('nameAsc');
-  public readonly nameFilterSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private readonly nameFilterSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private readonly colorsFilterSubject: BehaviorSubject<ReadonlySet<Color>> = new BehaviorSubject<ReadonlySet<Color>>(new Set());
   public readonly colorLabels: Record<Color, string> = {
   WHITE: 'White',
@@ -76,6 +76,10 @@ export class CollectionsListComponent {
     }
     this.colorsFilterSubject.next(next);
   }
+
+  public changeNameFilter(value: string): void {
+  this.nameFilterSubject.next(value);
+}
   private nameFilterCollection(collectionsCopy: Collection[], name: string): Collection[]  {
     if (name.trim().length === 0) {
       return collectionsCopy;

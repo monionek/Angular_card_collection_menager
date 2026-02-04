@@ -8,7 +8,7 @@
         <input
           type="text"
           placeholder="Search by name..."
-          (input)="nameFilterSubject.next($any($event.target).value)"
+          (input)="changeNameFilter($any($event.target).value)"
         />
       </label>
     </div>
@@ -17,14 +17,14 @@
       <p>Filter by color</p>
 
       @for (color of colors; track color) {
-      <label class="color-option color-{{ color | lowercase }}">
-        <input
-          type="checkbox"
-          [checked]="(colorsFilter$ | async)?.has(color)"
-          (change)="toggleColor(color)"
-        />
-        {{ colorLabels[color] }}
-      </label>
+        <label class="color-option color-{{ color | lowercase }}">
+          <input
+            type="checkbox"
+            [checked]="(colorsFilter$ | async)?.has(color)"
+            (change)="toggleColor(color)"
+          />
+          {{ colorLabels[color] }}
+        </label>
       }
     </div>
 
@@ -45,19 +45,19 @@
 
   <ul class="collection-items">
     @for (collection of viewCollections$ | async; track collection.id) {
-    <li class="collection-item">
-      <h2>{{ collection.name }}</h2>
-      <ul class="colors-list">
-        @for (color of collection.colors; track color) {
-        <li class="color-badge color-{{ color | lowercase }}">
-          {{ color }}
-        </li>
-        }
-      </ul>
-      <p>Card count: {{ collection.cards.length }}</p>
-      <p>Created at: {{ collection.createdAt }}</p>
-      <a [routerLink]="['/collections', collection.id]"> View details </a>
-    </li>
+      <li class="collection-item">
+        <h2>{{ collection.name }}</h2>
+        <ul class="colors-list">
+          @for (color of collection.colors; track color) {
+            <li class="color-badge color-{{ color | lowercase }}">
+              {{ color }}
+            </li>
+          }
+        </ul>
+        <p>Card count: {{ collection.cards.length }}</p>
+        <p>Created at: {{ collection.createdAt }}</p>
+        <a [routerLink]="['/collections', collection.id]"> View details </a>
+      </li>
     }
   </ul>
 </div>

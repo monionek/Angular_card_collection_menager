@@ -42,5 +42,6 @@ export default {
     'string-no-newline': true,
     'unit-allowed-list': ['px', 'em', 'rem', '%', 'fr', 's', 'vh', 'vw', 'deg'],
     'unit-no-unknown': true,
+    'no-descending-specificity': null,
   },
 };
