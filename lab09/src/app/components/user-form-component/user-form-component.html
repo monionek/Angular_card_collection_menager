@@ -1,7 +1,0 @@
-<form [formGroup]="userForm" (ngSubmit)="submit()">
-  <input formControlName="firstName" />
-  <input formControlName="lastName" />
-  <input formControlName="email" />
-
-  <button type="submit" [disabled]="userForm.invalid">Zapisz</button>
-</form>

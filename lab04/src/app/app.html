@@ -1,7 +1,0 @@
-<app-alert *ngIf="errMessage" [message]="errMessage" (close)="clearErr()"></app-alert>
-
-<app-product-form (add)="addProduct($event)"></app-product-form>
-
-<app-shoplist [products]="shoplist"></app-shoplist>
-
-<button (click)="removeBought()">Usuń kupione</button>
